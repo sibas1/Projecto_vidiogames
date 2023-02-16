@@ -80,5 +80,64 @@ router.post('/', async (req, res) => {
 
 });
 
+router.get('/:id', async (req, res) => {  
+    const {id} = req.params;
+    try {
+      if (!isNaN(id)){
+         var idkey = parseInt(id)
+         const result = await axios.get(`https://api.rawg.io/api/games/${idkey}?key=77c9b29fc8fc48b69c2bacc6d247a38b`)
+         if (result.data.id) {
+            let genrestr=[]
+            for (i=0;i<result.data.genres.length;i++) {
+                genrestr.push(result.data.genres[i].name)
+            } 
+            let platformstr=[]
+            for (i=0;i<result.data.platforms.length;i++) {
+              platformstr.push(result.data.platforms[i].platform.name)
+            } 
+            const searchapivg = {
+              name: result.data.name,
+              platforms: platformstr.toString(),
+              released: result.data.released, 
+              image: result.data.background_image,
+              description: result.data.description.replace(/<[^>]+>/g, ''),
+              rating: result.data.rating,
+              genres: genrestr.toString()
+            }
+            return res.status(200).json(searchapivg)
+         }
+      } 
+      var searchdbvg  = await Videogame.findByPk(id, {
+          include: [{
+             model: Genre,
+             attributes: ['name'],
+             through: {
+               attributes: []
+             }
+          }]
+      });
+       
+      if (searchdbvg) {
+         let genrestr=[]
+         for (let i=0;i<searchdbvg.genres.length;i++) {
+             genrestr.push(searchdbvg.genres[i].name)
+         }
+         const objdbgame = {
+            name: searchdbvg.name,
+            platforms: searchdbvg.platform, 
+            released: searchdbvg.reldate, 
+            image: "https://media.rawg.io/media/games/157/15742f2f67eacff546738e1ab5c19d20.jpg",
+            description: searchdbvg.description,
+            rating: searchdbvg.rating,
+            genres: genrestr.toString()
+         }
+         return res.status(200).json(objdbgame)
+      }  
+      return res.status(404).send('Videogame not found');
+    } catch (error) {
+      res.send(`Error in Rute /videogames:id ${error}`);
+    }
+  });
+
 
 module.exports = router;

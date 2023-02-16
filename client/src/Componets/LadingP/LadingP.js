@@ -1,7 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function LadingP() {
   return (
-    <div>LadingP</div>
+    <Link to='/home'>home</Link>
   )
 }
