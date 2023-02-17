@@ -1,10 +1,11 @@
-import { GET_VIDEOGAMES, GET_VGAME_BY_ID, GET_VGAMES_BY_NAME, GET_GENERO } from '../actions';
+import { GET_VIDEOGAMES, GET_VGAME_BY_ID, GET_VGAMES_BY_NAME, GET_GENERO ,POST_VGAME,GENRES_FILTER} from '../actions';
 
 
 const initialState = {
     videogames: [],
     genres: [],
-    videodetails: []
+    videodetails: [],
+    vgfilter : []
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -32,12 +33,22 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 videodetails: action.payload
             }
-            case GET_GENERO:
-                return {
-                    ...state,
-                    genres: action.payload
-                }
-
+        case GET_GENERO:
+            return {
+                ...state,
+                genres: action.payload
+            }
+        case POST_VGAME:
+            return {
+                ...state
+            }
+        case  GENRES_FILTER:
+            const allVgames = state.vgfilter
+            const genrefilter = allVgames.filter(p =>p.genres.includes(action.payload))
+            return{
+                ...state,
+                videogames: genrefilter 
+            }
         default:
             return { ...state }
     }
