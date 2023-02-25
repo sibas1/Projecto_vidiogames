@@ -1,0 +1,48 @@
+.container {
+    display: grid;
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 2em;
+
+
+}
+
+.container .card {
+    position:relative;
+    width: 330px;
+    height: 430px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+
+}
+
+.contenido {
+    visibility:hidden;
+    Display: none;z-index: 10000;
+    text-decoration: none;
+    color: #ffffff;
+    padding: auto ;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: red;
+    display: grid;
+    gap: 0.1ch;
+    background: hsla(0, 14%, 7%, 0.5);
+    backdrop-filter: blur(var(--blur));
+    height: 100%;
+    align-content: center;
+
+}
+.container :hover .contenido {
+    visibility:visible;
+}
+
+.imga {
+    z-index: 1;
+    width: 350px;
+    height: 400px;
+}

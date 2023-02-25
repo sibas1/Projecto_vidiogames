@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_VGAME_BY_ID, GET_VGAMES_BY_NAME, GET_GENERO ,POST_VGAME,GENRES_FILTER} from '../actions';
+import { GET_VIDEOGAMES, GET_VGAME_BY_ID, GET_VGAMES_BY_NAME, GET_GENERO ,POST_VGAME,GENRES_FILTER,ORIGEN_FILTER} from '../actions';
 
 
 const initialState = {
@@ -49,6 +49,14 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 videogames: genrefilter 
             }
+        case ORIGEN_FILTER:
+            const origenV = state.vgfilter
+            const origenfilter = action.payload == "DB" ? origenV.filter(p => p.origin === 'DB') : origenV.filter(p=> p.origin=== 'API')
+            return{
+                ...state,
+                videogames: action.payload === 'All' ? state.vgfilter : origenfilter
+            }
+                
         default:
             return { ...state }
     }

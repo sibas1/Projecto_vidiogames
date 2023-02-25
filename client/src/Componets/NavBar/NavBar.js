@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 function NavBar() {
   return (
     <div>
-      <Link to='/home'><div>home</div></Link>
-      <Link to= '/addvideogame'><div>add</div></Link>
+      <Link to='/home'><button>home</button></Link>
+      <Link to= '/addvideogame'><button>add</button></Link>
     </div>
 
   )
