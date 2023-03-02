@@ -16,7 +16,7 @@ function Home() {
   const allVgames = useSelector((state) => state.videogames)
   const allgenero = useSelector((state) => state.genres)
   const [paguina, setPaguina] = useState(1);
-  const [ppaguina, setPpaguina] = useState(5)
+  const [ppaguina, setPpaguina] = useState(10)
   const [cc, setCC] = useState("cargando"); 
   const max = allVgames.length / ppaguina;
   useEffect(() => { dispatch(getvgames()) }, [dispatch],)
